@@ -1,24 +1,22 @@
 import fs from 'fs/promises';
-import path from 'path';
 
 import { printError } from '../helpers/handleError.js';
+import { getNormalizedPath, isAccessToPath } from '../helpers/pathHelper.js';
 
 const up = (currentPath, initPath) => {
-    if (currentPath === initPath) {
-        return currentPath;
-    } else {
-        return path.normalize(currentPath + '/..');
-    }
+    const normalizedPath = getNormalizedPath('/..', currentPath);
+    return isAccessToPath(normalizedPath) ? normalizedPath : initPath;
 }
 
-const cd = async (currentPath, newPath, initPath) => {
+const cd = async (currentPath, newPath) => {
     try {
-        let newDir = '';
-        if (path.isAbsolute(newPath) && newPath.indexOf(initPath) === 0) {
-            newDir = newPath;
+        let newDir = ''
+        const normalizedPath = getNormalizedPath(newPath, currentPath);
+
+        if (isAccessToPath(normalizedPath)) {
+            newDir = normalizedPath;
         } else {
-            const normalizedNewPath = path.normalize(currentPath + '/' + newPath);
-            newDir = normalizedNewPath.indexOf(initPath) === 0 ? normalizedNewPath : initPath;
+            newDir = currentPath;
         }
         await fs.readdir(newDir);
         return newDir
