@@ -5,6 +5,7 @@ import { printCurrentPath } from './helpers/pathHelper.js';
 import handleExit from './helpers/handleExit.js';
 import { printError } from './helpers/handleError.js';
 import { up, ls, cd } from './commands/navigation.js';
+import { cat, add, rn, cp, mv, rm } from './commands/files.js'
 
 const start = (args) => {
     try {
@@ -13,12 +14,6 @@ const start = (args) => {
         const username = user.slice(11);
         const initDir = os.homedir();
         let currentDir = initDir;
-
-        /*
-        * getHomedir(){
-  return process.env.HOME || process.env.USERPROFILE;
-}
-        * */
 
         // init functions
         greet(username);
@@ -42,7 +37,25 @@ const start = (args) => {
                     await ls(currentDir);
                     break;
                 case 'cd':
-                    currentDir = await cd(currentDir, args[0].trim(), initDir);
+                    currentDir = await cd(currentDir, args[0].trim());
+                    break;
+                case 'cat':
+                    await cat(args[0].trim(), currentDir);
+                    break;
+                case 'add':
+                    await add(args[0].trim(), currentDir);
+                    break;
+                case 'rn':
+                    await rn(args[0].trim(), args[1].trim(), currentDir);
+                    break;
+                case 'cp':
+                    await cp(args[0].trim(), args[1].trim(), currentDir);
+                    break;
+                case 'mv':
+                    await mv(args[0].trim(), args[1].trim(), currentDir);
+                    break;
+                case 'rm':
+                    await rm(args[0].trim(), currentDir);
                     break;
                 default:
                     console.log('Invalid input');
