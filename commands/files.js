@@ -52,7 +52,7 @@ const rn = async (filepath, newName, currentDir) => {
             const stream = fs.createWriteStream(newFilePath);
 
             stream.write(content);
-            fsProm.unlink(file);
+            await fsProm.unlink(file);
         } else {
             throw new Error();
         }
@@ -87,7 +87,7 @@ const mv = async (filepath, newDir, currentDir) => {
     try {
         const file = getNormalizedPath(filepath, currentDir);
         await cp(filepath, newDir, currentDir);
-        fsProm.unlink(file);
+        await fsProm.unlink(file);
     } catch {
         printError();
     }
@@ -97,7 +97,7 @@ const rm = async (filepath, currentDir) => {
     try {
         const file = getNormalizedPath(filepath, currentDir);
         if (isAccessToPath(file)) {
-            fsProm.unlink(file);
+            await fsProm.unlink(file);
         } else {
             throw new Error()
         }

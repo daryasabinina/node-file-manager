@@ -8,6 +8,7 @@ import { up, ls, cd } from './commands/navigation.js';
 import { cat, add, rn, cp, mv, rm } from './commands/files.js';
 import osCustom from './commands/os.js';
 import hash from './commands/hash.js';
+import { compress, decompress } from './commands/archive.js';
 
 const start = (args) => {
     try {
@@ -64,6 +65,12 @@ const start = (args) => {
                     break;
                 case 'hash':
                     await hash(args[0].trim(), currentDir);
+                    break;
+                case 'compress':
+                    await compress(args[0].trim(), args[1].trim(), currentDir);
+                    break;
+                case 'decompress':
+                    await decompress(args[0].trim(), args[1].trim(), currentDir);
                     break;
                 default:
                     printInput();
