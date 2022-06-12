@@ -34,7 +34,7 @@ const start = (args) => {
                     process.emit('SIGINT');
                     break;
                 case 'up':
-                    currentDir = up(currentDir, initDir);
+                    currentDir = up(currentDir);
                     break;
                 case 'ls':
                     await ls(currentDir);

@@ -10,10 +10,10 @@ const getNormalizedPath = (newPath, currentPath) => {
 }
 
 const isAccessToPath = (p) => {
-    const initDir = os.homedir();
-    const normalizedDir = getNormalizedPath(p)
+    const rootDir = path.parse(os.homedir()).root;
+    const normalizedDir = getNormalizedPath(p);
 
-    return normalizedDir.indexOf(initDir) === 0;
+    return normalizedDir.indexOf(rootDir) === 0;
 }
 
 export { printCurrentPath, isAccessToPath, getNormalizedPath };

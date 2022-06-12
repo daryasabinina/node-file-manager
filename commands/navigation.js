@@ -3,9 +3,9 @@ import fs from 'fs/promises';
 import { printError } from '../helpers/handleError.js';
 import { getNormalizedPath, isAccessToPath } from '../helpers/pathHelper.js';
 
-const up = (currentPath, initPath) => {
-    const normalizedPath = getNormalizedPath('/..', currentPath);
-    return isAccessToPath(normalizedPath) ? normalizedPath : initPath;
+const up = (currentPath) => {
+    const normalizedPath = getNormalizedPath('..', currentPath);
+    return isAccessToPath(normalizedPath) ? normalizedPath : currentPath;
 }
 
 const cd = async (currentPath, newPath) => {
