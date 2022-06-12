@@ -2,4 +2,8 @@ const printError = () => {
     console.log('Operation failed');
 }
 
-export { printError }
+const printInput = () => {
+    console.log('Invalid input');
+}
+
+export { printError, printInput }

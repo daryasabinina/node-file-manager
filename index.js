@@ -3,9 +3,10 @@ import os from 'os';
 import greet from './helpers/greet.js';
 import { printCurrentPath } from './helpers/pathHelper.js';
 import handleExit from './helpers/handleExit.js';
-import { printError } from './helpers/handleError.js';
+import { printError, printInput } from './helpers/handleError.js';
 import { up, ls, cd } from './commands/navigation.js';
-import { cat, add, rn, cp, mv, rm } from './commands/files.js'
+import { cat, add, rn, cp, mv, rm } from './commands/files.js';
+import osCustom from './commands/os.js';
 
 const start = (args) => {
     try {
@@ -57,8 +58,11 @@ const start = (args) => {
                 case 'rm':
                     await rm(args[0].trim(), currentDir);
                     break;
+                case 'os':
+                    await osCustom(args[0].trim());
+                    break;
                 default:
-                    console.log('Invalid input');
+                    printInput();
                     break;
             }
 
